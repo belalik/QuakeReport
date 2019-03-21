@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
@@ -32,15 +33,16 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        ArrayList<String> earthquakes = new ArrayList<>();
-        earthquakes.add("San Francisco");
-        earthquakes.add("London");
-        earthquakes.add("Tokyo");
-        earthquakes.add("Mexico City");
-        earthquakes.add("Moscow");
-        earthquakes.add("Rio de Janeiro");
-        earthquakes.add("Paris");
+        ArrayList<Earthquake> earthquakes = new ArrayList<>();
+        earthquakes.add(new Earthquake(7.0, "San Francisco", new Date(2016, 02, 21)));
+        earthquakes.add(new Earthquake(3.2, "London", new Date(2015, 07, 20)));
+        earthquakes.add(new Earthquake(3.2, "Tokyo", new Date(2015, 07, 20)));
+        earthquakes.add(new Earthquake(3.2, "Mexico City", new Date(2015, 07, 20)));
+        earthquakes.add(new Earthquake(3.2, "Moscow", new Date(2015, 07, 20)));
+        earthquakes.add(new Earthquake(3.2, "Rio de Janeiro", new Date(2015, 07, 20)));
+        earthquakes.add(new Earthquake(3.2, "Paris", new Date(2015, 07, 20)));
 
+        /*
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
@@ -51,5 +53,19 @@ public class EarthquakeActivity extends AppCompatActivity {
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(adapter);
+
+        */
+
+        QuakeAdapter adapter = new QuakeAdapter(this, earthquakes);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_listyout file.
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        // Make the {@link ListView} use the {@link WordAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link Word} in the list.
+        listView.setAdapter(adapter);
+
     }
 }

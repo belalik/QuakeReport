@@ -17,9 +17,11 @@ import java.util.ArrayList;
 
 public class QuakeAdapter extends ArrayAdapter<Earthquake> {
 
-    private String pattern = "MM/dd/yyyy";
+    private String pattern = "dd/mm/yyyy";
 
     DateFormat df = new SimpleDateFormat(pattern);
+
+    //String formattedDate = myLocalDate.toString("MM/dd/yyyy");
 
     public QuakeAdapter(Activity context, ArrayList<Earthquake> quakes) {
         super(context, 0, quakes);
@@ -58,12 +60,12 @@ public class QuakeAdapter extends ArrayAdapter<Earthquake> {
 
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date_textview);
 
-        String quakeDateAsString = df.format(currentQuake.getDateOfQuake());
+        //String quakeDateAsString = df.format(currentQuake.getDateOfQuake());
 
-        dateTextView.setText(quakeDateAsString);
+        //dateTextView.setText(quakeDateAsString);
 
-
-
+        //dateTextView.setText(currentQuake.getDateOfQuake().toString("dd/MM/yyyy"));
+        dateTextView.setText(currentQuake.getDateOfQuake().toString("MMM d, yyyy"));
 
         // Return the whole list item layout (containing 2 TextViews)
         // so that it can be shown in the ListView

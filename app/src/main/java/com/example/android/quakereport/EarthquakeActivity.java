@@ -20,6 +20,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,13 +37,19 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         // Create a fake list of earthquake locations.
         ArrayList<Earthquake> earthquakes = new ArrayList<>();
-        earthquakes.add(new Earthquake(7.0, "San Francisco", new Date(2016, 02, 21)));
-        earthquakes.add(new Earthquake(3.2, "London", new Date(2015, 07, 20)));
-        earthquakes.add(new Earthquake(3.2, "Tokyo", new Date(2015, 07, 20)));
-        earthquakes.add(new Earthquake(3.2, "Mexico City", new Date(2015, 07, 20)));
-        earthquakes.add(new Earthquake(3.2, "Moscow", new Date(2015, 07, 20)));
-        earthquakes.add(new Earthquake(3.2, "Rio de Janeiro", new Date(2015, 07, 20)));
-        earthquakes.add(new Earthquake(3.2, "Paris", new Date(2015, 07, 20)));
+
+
+        earthquakes.add(new Earthquake(7.0, "San Francisco", new LocalDate(1998, 9, 22)));
+        earthquakes.add(new Earthquake(7.0, "London", new LocalDate(2002, 6, 7)));
+        earthquakes.add(new Earthquake(7.0, "Moscow", new LocalDate(1998, 12, 12)));
+        earthquakes.add(new Earthquake(7.0, "Tokyo", new LocalDate(1976, 10, 25)));
+
+        earthquakes.add(new Earthquake(7.0, "Athens", new LocalDate(2011, 3, 6)));
+        earthquakes.add(new Earthquake(7.0, "Paris", new LocalDate(2006, 8, 18)));
+        earthquakes.add(new Earthquake(7.0, "Syros", new LocalDate(1993, 6, 27)));
+        earthquakes.add(new Earthquake(7.0, "Rio de Janeiro", new LocalDate(1998, 4, 4)));
+
+
 
         /*
         // Find a reference to the {@link ListView} in the layout

@@ -1,6 +1,9 @@
 package com.example.android.quakereport;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+
 import java.util.Date;
 
 public class Earthquake {
@@ -10,9 +13,10 @@ public class Earthquake {
     private String epicentre;
 
     //private Date dateOfQuake;
-    private LocalDate dateOfQuake;
+    //private LocalDateTime dateOfQuake;
+    private DateTime dateOfQuake;
 
-    public Earthquake(double magnitude, String epicentre, LocalDate dateOfQuake) {
+    public Earthquake(double magnitude, String epicentre, DateTime dateOfQuake) {
         this.magnitude = magnitude;
         this.epicentre = epicentre;
         this.dateOfQuake = dateOfQuake;
@@ -34,11 +38,11 @@ public class Earthquake {
         this.epicentre = epicentre;
     }
 
-    public LocalDate getDateOfQuake() {
+    public DateTime getDateOfQuake() {
         return dateOfQuake;
     }
 
-    public void setDateOfQuake(LocalDate dateOfQuake) {
+    public void setDateOfQuake(DateTime dateOfQuake) {
         this.dateOfQuake = dateOfQuake;
     }
 }

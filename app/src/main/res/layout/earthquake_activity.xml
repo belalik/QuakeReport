@@ -18,4 +18,10 @@
     android:id="@+id/list"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+
+    />
+
+    <!--if you wanted to hide dividers: -->
+    <!--android:divider="@null"-->
+    <!--android:dividerHeight="0dp"-->

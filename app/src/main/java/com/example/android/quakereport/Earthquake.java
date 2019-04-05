@@ -16,10 +16,14 @@ public class Earthquake {
     //private LocalDateTime dateOfQuake;
     private DateTime dateOfQuake;
 
-    public Earthquake(double magnitude, String epicentre, DateTime dateOfQuake) {
+    /** Website URL of the earthquake */
+    private String url;
+
+    public Earthquake(double magnitude, String epicentre, DateTime dateOfQuake, String url) {
         this.magnitude = magnitude;
         this.epicentre = epicentre;
         this.dateOfQuake = dateOfQuake;
+        this.url = url;
     }
 
     public double getMagnitude() {
@@ -44,5 +48,13 @@ public class Earthquake {
 
     public void setDateOfQuake(DateTime dateOfQuake) {
         this.dateOfQuake = dateOfQuake;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

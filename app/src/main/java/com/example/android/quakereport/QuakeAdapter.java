@@ -182,13 +182,13 @@ public class QuakeAdapter extends ArrayAdapter<Earthquake> {
                 color = R.color.magnitude5;
                 break;
             case 6:
-                color = R.color.magnitude1;
+                color = R.color.magnitude6;
                 break;
             case 7:
-                color = R.color.magnitude1;
+                color = R.color.magnitude7;
                 break;
             case 8:
-                color = R.color.magnitude2;
+                color = R.color.magnitude8;
                 break;
             case 9:
                 color = R.color.magnitude9;

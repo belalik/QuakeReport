@@ -52,9 +52,7 @@ public class QueryUtils {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
 
-        // Extract relevant fields from the JSON response and create an {@link Event} object
-
-
+        // Extract relevant fields from the JSON response and create an ArrayList of {@link Earthquake} object
         ArrayList<Earthquake> days = extractEarthquakes(jsonResponse);
 
         // Return the ArrayList of Earthquake objects
@@ -179,7 +177,9 @@ public class QueryUtils {
                 // java.util.Date time=new java.util.Date((long)timeStamp*1000);
                 DateTime date = new DateTime(propertiesJSON.getLong("time"));
 
-                earthquakes.add(new Earthquake(mag, place, date));
+                String url = propertiesJSON.getString("url");
+
+                earthquakes.add(new Earthquake(mag, place, date, url));
             }
 
         } catch (JSONException e) {

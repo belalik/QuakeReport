@@ -94,7 +94,7 @@ public class EarthquakeActivity extends AppCompatActivity {
 
 
         // Start the AsyncTask to fetch the earthquake data
-        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+        EarthquakeAsyncTask task = new EarthquakeAsyncTask(EarthquakeActivity.this);
         task.execute(EARTHQUAKES_REQUEST_URL);
 
     }
@@ -104,12 +104,14 @@ public class EarthquakeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(LOG_TAG, "MPAINW STIN "+"OnCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(LOG_TAG, "MPAINW STIN "+"onOptionsItemSelected");
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
@@ -121,7 +123,18 @@ public class EarthquakeActivity extends AppCompatActivity {
 
     private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
 
-        //private ProgressDialog dialog;
+        private ProgressDialog dialog;
+
+        public EarthquakeAsyncTask (Activity activity) {
+            dialog = new ProgressDialog(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Κάτι ψήνεται..\n Υπομονή !");
+            dialog.setIndeterminate(true);
+            dialog.show();
+        }
 
 
         /**
@@ -158,6 +171,10 @@ public class EarthquakeActivity extends AppCompatActivity {
             // data set. This will trigger the ListView to update.
             if (data != null && !data.isEmpty()) {
                 mAdapter.addAll(data);
+
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
             }
         }
 

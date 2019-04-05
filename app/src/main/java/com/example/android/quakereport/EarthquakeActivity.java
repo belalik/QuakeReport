@@ -34,13 +34,19 @@ import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
+    // this is for athens
+   // private static final String EARTHQUAKES_REQUEST_URL =
+     //       "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=1999-01-01&endtime=NOW&%20maxradiuskm=300.0&minmagnitude=5.5&latitude=39.89&longitude=23.72";
+
+    // this is for the top 10 most recent earthquakes in the world with at least a magnitude of 6.
     private static final String EARTHQUAKES_REQUEST_URL =
-            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=1999-01-01&endtime=NOW&%20maxradiuskm=300.0&minmagnitude=5.5&latitude=39.89&longitude=23.72";
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
 
-        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+        //List<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
 
         /*
@@ -112,7 +118,7 @@ public class EarthquakeActivity extends AppCompatActivity {
     }
 
 
-    private void updateUi(final ArrayList<Earthquake> earthquakes) {
+    private void updateUi(final List<Earthquake> earthquakes) {
 
 
         QuakeAdapter adapter = new QuakeAdapter(this, earthquakes);
@@ -144,7 +150,7 @@ public class EarthquakeActivity extends AppCompatActivity {
     }
 
 
-    private class EarthquakeAsyncTask extends AsyncTask<String, Void, ArrayList<Earthquake>> {
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
 
         //private ProgressDialog dialog;
 
@@ -198,7 +204,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         */
 
         @Override
-        protected void onPostExecute(ArrayList<Earthquake> earthquakes) {
+        protected void onPostExecute(List<Earthquake> earthquakes) {
             if (earthquakes == null) {
                 return;
             }

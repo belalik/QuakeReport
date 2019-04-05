@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class QuakeAdapter extends ArrayAdapter<Earthquake> {
@@ -33,7 +34,7 @@ public class QuakeAdapter extends ArrayAdapter<Earthquake> {
 
     //String formattedDate = myLocalDate.toString("MM/dd/yyyy");
 
-    public QuakeAdapter(Activity context, ArrayList<Earthquake> quakes) {
+    public QuakeAdapter(Activity context, List<Earthquake> quakes) {
         super(context, 0, quakes);
     }
 

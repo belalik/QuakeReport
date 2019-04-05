@@ -15,11 +15,17 @@
  */
 package com.example.android.quakereport;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -33,27 +39,14 @@ public class EarthquakeActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
+    private static final String EARTHQUAKES_REQUEST_URL =
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=1999-01-01&endtime=NOW&%20maxradiuskm=300.0&minmagnitude=5.5&latitude=39.89&longitude=23.72";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        // Create a fake list of earthquake locations.
-
-        /*
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-
-
-        earthquakes.add(new Earthquake(7.0, "San Francisco", new LocalDate(1998, 9, 22)));
-        earthquakes.add(new Earthquake(7.0, "London", new LocalDate(2002, 6, 7)));
-        earthquakes.add(new Earthquake(7.0, "Moscow", new LocalDate(1998, 12, 12)));
-        earthquakes.add(new Earthquake(7.0, "Tokyo", new LocalDate(1976, 10, 25)));
-
-        earthquakes.add(new Earthquake(7.0, "Athens", new LocalDate(2011, 3, 6)));
-        earthquakes.add(new Earthquake(7.0, "Paris", new LocalDate(2006, 8, 18)));
-        earthquakes.add(new Earthquake(7.0, "Syros", new LocalDate(1993, 6, 27)));
-        earthquakes.add(new Earthquake(7.0, "Rio de Janeiro", new LocalDate(1998, 4, 4)));
-        */
 
         ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
@@ -72,18 +65,33 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         */
 
-        QuakeAdapter adapter = new QuakeAdapter(this, earthquakes);
+        //QuakeAdapter adapter = new QuakeAdapter(this, earthquakes);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // word_listyout file.
-        ListView listView = (ListView) findViewById(R.id.list);
+
+        //ListView listView = (ListView) findViewById(R.id.list);
 
         // Make the {@link ListView} use the {@link WordAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link Word} in the list.
-        listView.setAdapter(adapter);
+
+        //listView.setAdapter(adapter);
+
+        // Kick off an {@link AsyncTask} to perform the network request
+        //LeshiAsyncTask task = new LeshiAsyncTask();
+
+        //EarthquakeAsyncTask task = new EarthquakeAsyncTask(EarthquakeActivity.this);
+
+        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+        task.execute();
+
+        //new myClass(YourActivity.this, "Hello!", 123).execute();
+
 
     }
+
+
 
 
     @Override
@@ -102,4 +110,111 @@ public class EarthquakeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void updateUi(final ArrayList<Earthquake> earthquakes) {
+
+
+        QuakeAdapter adapter = new QuakeAdapter(this, earthquakes);
+
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
+
+        /*
+        // ListView on item selected listener.
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+
+                Intent intent = new Intent(MainActivity.this, DailyFoods.class);
+
+                Day day = days.get(position);
+
+                intent.putExtra("dayObject", day);
+                startActivity(intent);
+
+            }
+        });
+
+        */
+    }
+
+
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, ArrayList<Earthquake>> {
+
+        //private ProgressDialog dialog;
+
+
+
+
+        @Override
+        protected ArrayList<Earthquake> doInBackground(String... urls) {
+            //int numberOfWeek = findWeek();
+
+            //ArrayList<Earthquake> earthquakes = Utils.fetchDaysData(EARTHQUAKES_REQUEST_URL);
+
+            ArrayList<Earthquake> earthquakes = QueryUtils.fetchEarthquakes(EARTHQUAKES_REQUEST_URL);
+
+            //days = Utils.fetchDaysData(LESHI_REQUEST_URL);
+
+            //Day day = Utils.fetchDayData(LESHI_REQUEST_URL);
+
+
+
+            /*
+            // Create URL object
+            URL url = createUrl(USGS_REQUEST_URL);
+
+            // Perform HTTP request to the URL and receive a JSON response back
+            String jsonResponse = "";
+            try {
+                jsonResponse = makeHttpRequest(url);
+            } catch (IOException e) {
+                // TODO Handle the IOException
+            }
+
+            // Extract relevant fields from the JSON response and create an {@link Event} object
+            Event earthquake = extractFeatureFromJson(jsonResponse);
+
+            // Return the {@link Event} object as the result fo the {@link TsunamiAsyncTask}
+            return earthquake;
+
+            */
+
+            return earthquakes;
+        }
+
+        /*
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Κάτι ψήνεται..\n Υπομονή !");
+            dialog.setIndeterminate(true);
+            dialog.show();
+        }
+        */
+
+        @Override
+        protected void onPostExecute(ArrayList<Earthquake> earthquakes) {
+            if (earthquakes == null) {
+                return;
+            }
+
+            updateUi(earthquakes);
+            /*
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            */
+        }
+
+
+
+
+    }
+
+
 }
